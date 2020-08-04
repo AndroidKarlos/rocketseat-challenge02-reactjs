@@ -9,23 +9,20 @@ function App() {
   useEffect(() => {
     api.get('repositories').then(response => {
       setRepositories(response.data);
-      console.log(repositories)
     });
-  },[]);
-
-
+  });
 
   async function handleAddRepository() {
-    const response = await api.post("repositories", {
-      title: "primeiro projeto",
-      owner: "carlos bezerra",
+    const response = await api.post('repositories', {
+      url: "http://github.com/androidkarlos",
+      title: "Projeto de repositorios",
+      techs: ['javaScript', 'Java']
     });
-
-    setRepositories([...repositories, response]);
+    setRepositories([...repositories, response.data]);
   }
 
   async function handleRemoveRepository(id) {
-    // TODO
+    await api.delete('repositories/'+ id);
   }
 
   return (
